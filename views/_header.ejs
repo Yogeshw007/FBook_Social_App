@@ -1,0 +1,44 @@
+<header>
+    <div id="header-container" class="d-flex justify-content-between align-items-center bg-primary px-4 py-3">
+        <div id="brand-link">
+            <a href=" /" class="text-white">
+                <h5>FBook</h5>
+            </a>
+        </div>
+
+        <% if (locals.user) { %>
+            <div id="user-authentication" class="d-flex align-items-center">
+                <a href="/users/profile/<%= locals.user._id %>" class="d-flex align-items-center">
+                    <img src="https://www.w3schools.com/howto/img_avatar.png" alt="Avatar" style="width: 40px;"
+                        class="rounded-circle mr-2">
+                    <p class="p-0 m-0 text-white mr-3">
+                        <%= user.name %>
+                    </p>
+                    <a href="/users/signout" class="text-white">SignOut</a>
+                </a>
+
+            </div>
+            <% }else{ %>
+                <div id="user-authentication ">
+                    <a href="/users/signin" class="text-dark font-weight-bolder rounded bg-light p-1 mr-4">SignIn</a>
+                    <a href="/users/signup" class="text-dark font-weight-bolder rounded bg-light p-1">SignUp</a>
+                </div>
+                <% } %>
+
+
+    </div>
+</header>
+
+<ul class="nav nav-tabs" id="myTab" role="tablist">
+    <% if(!locals.user) {%>
+        <li class="nav-item">
+            <a class="nav-link active" href="/">Home</a>
+        </li>
+        <% } %>
+            <li class="nav-item">
+                <a class="nav-link" href="/posts">Posts</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="/posts/create-post">Create post</a>
+            </li>
+</ul>

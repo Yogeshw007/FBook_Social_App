@@ -1,0 +1,28 @@
+<div id="users" class="position-relative" style="z-index: 1;">
+    <div class="sticky-top">
+        <h5 class="text-center my-3 ">Users list</h5>
+        <hr class="m-0 p-0">
+        <ul id="users-list" class="d-flex align-items-center flex-column p-0 border-top border-dark"
+            style="list-style: none;">
+            <% if (locals.all_users) { %>
+                <% for( let i=0; i < all_users.length; i++ ) { %>
+                    <% if (all_users[i].id==user.id) { %>
+                        <% continue; %>
+                            <% } %>
+
+                                <li class="px-5 py-2 border-bottom border-dark" style="width: 100%;">
+                                    <a href="/users/profile/<%= all_users[i]._id %>"
+                                        class="d-flex justify-content-center align-items-center">
+                                        <img src="https://www.w3schools.com/howto/img_avatar2.png" alt="user-avatar"
+                                            class="rounded-circle" style="width: 50px;">
+                                        <p class="m-0 p-0 pl-4">
+                                            <%= all_users[i].name %>
+                                        </p>
+                                    </a>
+                                </li>
+
+                                <% } %>
+                                    <% } %>
+        </ul>
+    </div>
+</div>

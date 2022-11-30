@@ -1,0 +1,12 @@
+<div id="create-post-container" style="height: 70vh;"
+    class="d-flex justify-content-center align-items-center flex-column">
+    <h3 class="text-center mb-3">Create Post</h3>
+    <div id="create_post" class="p-5 text-white rounded" style="background-color: #2B86C5;">
+        <form action="/posts/add-post" enctype="multipart/form-data" method="POST"
+            class="d-flex flex-column align-items-center justify-content-center">
+            <input type="file" name="image" placeholder="Post image" class="my-1" required>
+            <textarea type="text" name="title" placeholder="Post title" rows="5" cols="40" required></textarea>
+            <input type="submit" value="Update" class="my-1">
+        </form>
+    </div>
+</div>

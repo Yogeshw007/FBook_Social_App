@@ -1,0 +1,77 @@
+<form action="/comments/add/<%= post._id%>" method="POST" id="create-comment-form" class="d-flex flex-row">
+    <input type="text" placeholder="Type your comment here" class="w-100" name="title">
+    <input type="submit" value="Add comment">
+</form>
+<ul id="comments" class="px-2">
+    <% for( let j=0; j < post.comments.length; j++ ) { %>
+        <li class="comment my-4 d-flex align-items-center justify-content-between">
+            <div>
+                <p class="m-0 p-0">
+                    <%= post.comments[j].title %>
+                </p>
+                <% if (post.comments[j].reaction) { %>
+                    <div class="rounded-circle d-flex justify-content-center py-2 shadow-lg bg-light"
+                        style="width: 30px;">
+                        <% if (post.comments[j].reaction==='smile' ) { %>
+                            <i class="fa-solid fa-face-smile" style="color: #ffcc04"></i>
+                            <% } else if (post.comments[j].reaction==='angry' ) { %>
+                                <i class="fa-solid fa-face-angry" style="color: red;"></i>
+                                <% } else if (post.comments[j].reaction==='wink' ) { %>
+                                    <i class="fa-solid fa-face-smile-wink" style="color: #ffcc04;"></i>
+                                    <% } else if (post.comments[j].reaction==='heart' ) { %>
+                                        <i class="fa-solid fa-heart" style="color: red;"></i>
+                                        <% } %>
+                    </div>
+                    <% } %>
+                        <sub>
+                            <i>
+                                <%= post.comments[j].addedby %>
+                            </i>
+                        </sub>
+            </div>
+
+            <div class="reactions position-relative d-flex justify-content-center">
+                <button class="react-logo p-0 rounded-circle p-2 shadow-lg bg-light"
+                    style="border: none;background: none;outline: none;">
+                    <i class="fa-solid fa-md fa-face-smile fa-xl" style="color: #ffcc04"></i>
+                </button>
+                <ul class="smiley position-absolute d-flex p-0 m-0 bg-dark rounded"
+                    style="list-style: none; top: -3rem;visibility: hidden;">
+                    <li class="mr-2">
+                        <form action="/comments/add-reaction/<%= post.comments[j]._id %>" method="POST">
+                            <button type="submit" class="btn bg-transparent">
+                                <input type="hidden" name="reaction" value="smile">
+                                <i class="fa-solid fa-face-smile fa-xl react" style="color: #ffcc04"></i>
+                            </button>
+                        </form>
+                    </li>
+                    <li class="mr-2">
+                        <form action="/comments/add-reaction/<%= post.comments[j]._id %>" method="POST">
+                            <button type="submit" class="btn bg-transparent">
+                                <input type="hidden" name="reaction" value="angry">
+                                <i class="fa-solid fa-face-angry fa-xl react" style="color: red;"></i>
+                            </button>
+                        </form>
+                    </li>
+                    <li class="mr-2">
+                        <form action="/comments/add-reaction/<%= post.comments[j]._id %>" method="POST">
+                            <button type="submit" class="btn bg-transparent">
+                                <input type="hidden" name="reaction" value="wink">
+                                <i class="fa-solid fa-face-smile-wink fa-xl" style="color: #ffcc04;"></i>
+                            </button>
+                        </form>
+                    </li>
+                    <li>
+                        <form action="/comments/add-reaction/<%= post.comments[j]._id %>" method="POST">
+                            <button type="submit" class="btn bg-transparent">
+                                <input type="hidden" name="reaction" value="heart">
+                                <i class="fa-solid fa-heart react fa-xl" style="color: red;"></i>
+                            </button>
+                        </form>
+                    </li>
+                </ul>
+            </div>
+
+        </li>
+        <% } %>
+</ul>

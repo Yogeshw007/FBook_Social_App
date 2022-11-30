@@ -1,0 +1,54 @@
+<div id="chat-model" class="rounded bg-light border border-dark shadow-lg d-flex justify-content-between flex-column"
+    style="width: 20rem;position: fixed;bottom:0px;right: 0px;z-index: 2;">
+    <div id="message-container">
+        <div id="chat-header"
+            class="d-flex justify-content-between flex-row align-items-center px-3 py-2 overflow-hidden">
+            <h4 class="p-0 m-0 text-center">Chat</h4>
+            <button id="chat-minimize" class="border-0 outline-0 bg-transparent">
+                <i class="fa-solid fa-minus fa-md bg-success p-1 rounded-circle" style="cursor: pointer;"></i>
+            </button>
+
+        </div>
+
+        <hr class="p-0 m-0">
+        <ul id="messages" class="d-none" style="list-style: none;font-size: 0.9rem;height: 20rem;">
+            <% for( let i=0; i < messages.length; i++ ) { %>
+                <% if (locals.user.email==messages[i].user.email) { %>
+                    <li class="align-self-end border border-dark p-2 rounded mb-2">
+                        <p class="p-0 m-0">
+                            <%= messages[i].message %>
+                        </p>
+                        <p class="text-right p-0 m-0" style="font-size: 0.7rem;"><i>
+                                <%= messages[i].user.email %>
+                            </i></p>
+                    </li>
+                    <% } else {%>
+                        <li class="align-self-start border border-dark p-2 rounded mb-2">
+                            <p class="p-0 m-0">
+                                <%= messages[i].message %>
+                            </p>
+                            <p class="text-right p-0 m-0" style="font-size: 0.7rem;"><i>
+                                    <%= messages[i].user.email %>
+                                </i></p>
+                        </li>
+                        <% } %>
+
+                            <% } %>
+
+                                <!-- <li class="align-self-start border border-dark p-2 rounded mb-2">
+                <p class="p-0 m-0">Other message</p>
+                <p class="text-right p-0 m-0" style="font-size: 0.5rem;"><i>Yogesh</i></p>
+            </li>
+            <li class="align-self-end border border-dark p-2 rounded mb-2">
+                <p class="p-0 m-0">Self message</p>
+                <p class="text-right p-0 m-0" style="font-size: 0.5rem;"><i>Yogesh</i></p>
+            </li> -->
+        </ul>
+    </div>
+
+    <div id="chat-footer" class="d-none">
+        <input type="text" id="chat-message-input" class="w-100" name="chat_message"
+            placeholder="Type your message here">
+        <button id="send-message" class="flex-shrink-1 p-2">Send</button>
+    </div>
+</div>
