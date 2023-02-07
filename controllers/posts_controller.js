@@ -4,10 +4,12 @@ const Messages = require('../models/messages');
 const path = require('path');
 
 module.exports.posts = async function (req, res) {
-    let users = await User.find({}).populate('friendship');
-    let posts = await Post.find({}).populate('comments');
+    let users = await User.find({}).populate('friendship')
+    let posts = await Post.find({}).populate('comments').populate('createdBy');
     let messages = await Messages.find({}).populate('user');
     let user = await User.findById(req.user._id);
+
+    console.log('user', req.user)
 
     return res.render('posts', {
         title: 'FBook | Posts',
@@ -35,7 +37,8 @@ module.exports.addPost = async function (req, res) {
 
         await Post.create({
             title: req.body.title,
-            image: Post.postImagePath + "/" + fileName
+            image: Post.postImagePath + "/" + fileName,
+            createdBy: req.user._id
         });
     });
 

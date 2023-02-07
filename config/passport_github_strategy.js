@@ -10,7 +10,6 @@ passport.use(new GitStrategy({
     clientSecret: env.GITHUB_CLIENT_SECRET,
     callbackURL: env.GITHUB_CALLBACK_URL
 }, function (accessToken, refreshToken, profile, done) {
-    console.log(profile)
     User.findOne({ email: `${profile.username}@github.com` }).exec(function (err, user) {
         if (err) { console.log('error in github strategy-passport', err); return; }
 
@@ -20,7 +19,8 @@ passport.use(new GitStrategy({
             User.create({
                 name: profile.username,
                 email: `${profile.username}@github.com`,
-                password: crypto.randomBytes(20).toString('hex')
+                password: crypto.randomBytes(20).toString('hex'),
+                avatar: profile.photos[0].value
             }, function (err, user) {
                 if (err) { console.log('error in google user strategy-passport', err); return; }
                 console.log('User created through github sign in', user);

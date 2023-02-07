@@ -1,6 +1,7 @@
 <div id="signup-container" style="height: 70vh;" class="d-flex justify-content-center align-items-center flex-column">
     <div id="signup" class="p-5 bg-dark border border-black d-flex align-items-center flex-column text-white rounded">
-        <form method="POST" action="/users/create" class="d-flex align-items-center flex-column">
+        <form action="/users/create" method="post" enctype="multipart/form-data"
+            class="d-flex align-items-center flex-column">
             <div class=" form-group ">
                 <label for="Name">Name</label>
                 <input type="text" class="form-control" id="name" placeholder="Enter name" name="name">
@@ -18,9 +19,10 @@
                 <input type="password" class="form-control" id="confirm-password" name="confirm_password"
                     placeholder="Confirm password">
             </div>
+            <input type="file" name="avatar" placeholder="User image" class="my-1" required>
             <button type="submit" class="btn btn-primary">Submit</button>
         </form>
-        <a href="/google/auth" class="bg-white py-3 px-5 rounded mt-3">
+        <a href="/users/auth/google" class="bg-white py-3 px-5 rounded mt-3">
             <i class="fa-brands fa-google text-dark"></i>
             <span>Sign up with Google</span>
         </a>

@@ -11,19 +11,12 @@
         </div>
 
         <hr class="p-0 m-0">
-        <ul id="messages" class="d-none" style="list-style: none;font-size: 0.9rem;height: 20rem;">
-            <% for( let i=0; i < messages.length; i++ ) { %>
-                <% if (locals.user.email==messages[i].user.email) { %>
-                    <li class="align-self-end border border-dark p-2 rounded mb-2">
-                        <p class="p-0 m-0">
-                            <%= messages[i].message %>
-                        </p>
-                        <p class="text-right p-0 m-0" style="font-size: 0.7rem;"><i>
-                                <%= messages[i].user.email %>
-                            </i></p>
-                    </li>
-                    <% } else {%>
-                        <li class="align-self-start border border-dark p-2 rounded mb-2">
+        <% if(messages) {%>
+            <ul id="messages" class="d-none" style="list-style: none;font-size: 0.9rem;height: 20rem;">
+
+                <% for( let i=0; i < messages.length; i++ ) { %>
+                    <% if (locals.user.email==messages[i].user.email) { %>
+                        <li class="align-self-end border border-dark p-2 rounded mb-2">
                             <p class="p-0 m-0">
                                 <%= messages[i].message %>
                             </p>
@@ -31,19 +24,30 @@
                                     <%= messages[i].user.email %>
                                 </i></p>
                         </li>
-                        <% } %>
-
+                        <% } else {%>
+                            <li class="align-self-start border border-dark p-2 rounded mb-2">
+                                <p class="p-0 m-0">
+                                    <%= messages[i].message %>
+                                </p>
+                                <p class="text-right p-0 m-0" style="font-size: 0.7rem;"><i>
+                                        <%= messages[i].user.email %>
+                                    </i></p>
+                            </li>
                             <% } %>
 
-                                <!-- <li class="align-self-start border border-dark p-2 rounded mb-2">
-                <p class="p-0 m-0">Other message</p>
-                <p class="text-right p-0 m-0" style="font-size: 0.5rem;"><i>Yogesh</i></p>
-            </li>
-            <li class="align-self-end border border-dark p-2 rounded mb-2">
-                <p class="p-0 m-0">Self message</p>
-                <p class="text-right p-0 m-0" style="font-size: 0.5rem;"><i>Yogesh</i></p>
-            </li> -->
-        </ul>
+                                <% } %>
+
+                                    <!-- <li class="align-self-start border border-dark p-2 rounded mb-2">
+                            <p class="p-0 m-0">Other message</p>
+                            <p class="text-right p-0 m-0" style="font-size: 0.5rem;"><i>Yogesh</i></p>
+                        </li>
+                        <li class="align-self-end border border-dark p-2 rounded mb-2">
+                            <p class="p-0 m-0">Self message</p>
+                            <p class="text-right p-0 m-0" style="font-size: 0.5rem;"><i>Yogesh</i></p>
+                        </li> -->
+            </ul>
+            <% } %>
+
     </div>
 
     <div id="chat-footer" class="d-none">

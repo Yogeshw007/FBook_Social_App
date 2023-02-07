@@ -2,6 +2,8 @@ const User = require('../models/user');
 const Friendship = require('../models/friendship');
 
 module.exports.createSession = function (req, res) {
+    console.log('req.user', req.user)
+
     return res.redirect(`/users/profile/${req.user._id}`);
 }
 
@@ -18,25 +20,34 @@ module.exports.signUp = function (req, res) {
 }
 
 module.exports.createUser = async function (req, res) {
-    if (req.body.password != req.body.confirm_password) {
-        return res.redirect('/user/signin');
-    }
+    // if (req.body.password != req.body.confirm_password) {
+    //     return res.redirect('/user/signin');
+    // }
 
-    try {
-        let user = await User.findOne({ email: req.body.email });
-
-        if (!user) {
-            user = await User.create({
-                name: req.body.name,
-                email: req.body.email,
-                password: req.body.password
-            });
+    await User.uploadAvatar(req, res, async function (err) {
+        if (err) {
+            console.log('Error in uploading file ', err);
         }
-        console.log('User created', user);
-    } catch (err) {
-        console.log('Error in creating the user', err);
-    }
-    return res.redirect('/users/signin');
+        console.log('User.userImagePath', User.usersImgPath);
+
+        let fileName = req.file.path.split('\\').slice(-1);
+
+        try {
+            let user = await User.findOne({ email: req.body.email });
+
+            if (!user) {
+                await User.create({
+                    name: req.body.name,
+                    email: req.body.email,
+                    password: req.body.password,
+                    avatar: User.usersImgPath + "/" + fileName,
+                });
+            }
+        } catch (err) {
+            console.log('Error in creating the user', err);
+        }
+        return res.redirect('/users/signin');
+    });
 }
 
 module.exports.profile = async function (req, res) {
@@ -46,7 +57,6 @@ module.exports.profile = async function (req, res) {
     if (!friend) {
         friend = await Friendship.findOne({ user2: req.params.id });
     }
-    console.log(req.user)
 
     return res.render('profile', {
         title: 'FBook | Profile',
@@ -65,9 +75,6 @@ module.exports.destroySession = function (req, res) {
 }
 
 module.exports.addFriendRequest = async function (req, res) {
-    console.log('req.body.to_user', req.body.to_user)
-    console.log('req.body.from_user', req.body.from_user)
-
     await Friendship.create({
         user1: req.body.from_user,
         user2: req.body.to_user,
@@ -90,9 +97,6 @@ module.exports.acceptFriendRequest = async function (req, res) {
     let user1 = await User.findById(req.user._id);
     let user2 = await User.findById(req.body.to_user);
 
-    console.log('*******user1', user1);
-    console.log('*******user2', user2);
-
     await user1.friendship.push(friendRequest);
     await user2.friendship.push(friendRequest);
     await user1.save();
@@ -102,7 +106,6 @@ module.exports.acceptFriendRequest = async function (req, res) {
 }
 
 module.exports.removeFriend = async function (req, res) {
-    // await Friendship.findOneAndDelete({ from_user: req.body.from_user, to_user: req.body.to_user })
     let friend = await Friendship.findOne({ user1: req.body.from_user });
 
     if (!friend) {

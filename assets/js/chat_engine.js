@@ -38,6 +38,8 @@ class ChatEngine {
                     chatroom: 'fbook'
                 });
             }
+
+            $('#chat-message-input').val('');
         });
 
 

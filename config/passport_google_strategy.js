@@ -11,7 +11,6 @@ passport.use(new googleStrategy({
     callbackURL: env.google_callback_url,
 },
     function (accessToken, refreshToken, profile, done) {
-        console.log(profile)
         User.findOne({ email: profile.emails[0].value }).exec(function (err, user) {
             if (err) { console.log('error in google strategy-passport', err); return; }
 
@@ -23,7 +22,8 @@ passport.use(new googleStrategy({
                 User.create({
                     name: profile.displayName,
                     email: profile.emails[0].value,
-                    password: crypto.randomBytes(20).toString('hex')
+                    password: crypto.randomBytes(20).toString('hex'),
+                    avatar: profile.photos[0].value
                 }, function (err, user) {
                     if (err) { console.log('error in google user strategy-passport', err); return; }
                     console.log('User created through google sign in', user);

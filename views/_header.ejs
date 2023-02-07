@@ -9,8 +9,8 @@
         <% if (locals.user) { %>
             <div id="user-authentication" class="d-flex align-items-center">
                 <a href="/users/profile/<%= locals.user._id %>" class="d-flex align-items-center">
-                    <img src="https://www.w3schools.com/howto/img_avatar.png" alt="Avatar" style="width: 40px;"
-                        class="rounded-circle mr-2">
+                    <img src="<%- user.avatar %>" alt="Avatar" style="width: 40px;height: 40px;object-fit: cover;"
+                        class="rounded-circle mr-2 border border-white">
                     <p class="p-0 m-0 text-white mr-3">
                         <%= user.name %>
                     </p>

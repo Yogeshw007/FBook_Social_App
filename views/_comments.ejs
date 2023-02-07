@@ -19,12 +19,14 @@
                                 <% } else if (post.comments[j].reaction==='wink' ) { %>
                                     <i class="fa-solid fa-face-smile-wink" style="color: #ffcc04;"></i>
                                     <% } else if (post.comments[j].reaction==='heart' ) { %>
-                                        <i class="fa-solid fa-heart" style="color: red;"></i>
+                                        <i class="fa-solid fa-heart border border-dark" style="color: red;"></i>
                                         <% } %>
                     </div>
                     <% } %>
                         <sub>
+                            <span>By </span>
                             <i>
+
                                 <%= post.comments[j].addedby %>
                             </i>
                         </sub>

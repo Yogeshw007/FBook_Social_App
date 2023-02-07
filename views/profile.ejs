@@ -8,29 +8,33 @@
             <p>
                 <%= profileuser.email %>
             </p>
-            <% if (locals.friend && (locals.friend.addedby==user.id || locals.friend.addedby==user.id) &&
-                locals.friend.status==false) { %>
-                <h6>Request sent</h6>
-                <% } else if(locals.friend && (locals.friend.user1==user.id || locals.friend.user2==user.id) &&
-                    locals.friend.status==false) {%>
-                    <form action="/users/accept-friend" method="POST">
-                        <input type="hidden" name="from_user" value="<%= locals.user._id %>">
-                        <input type="hidden" name="to_user" value="<%= profileuser._id %>">
-                        <button type="submit" class="bg-info text-white">Accept Friend</button>
-                    </form>
-                    <% } else if(locals.friend && locals.friend.status==true){ %>
-                        <form action="/users/remove-friend" method="POST">
+            <% if(profileuser.id !==user.id) {%>
+                <% if (locals.friend && (locals.friend.addedby==user.id || locals.friend.addedby==user.id) &&
+                    locals.friend.status==false) { %>
+                    <h6>Request sent</h6>
+                    <% } else if(locals.friend && (locals.friend.user1==user.id || locals.friend.user2==user.id) &&
+                        locals.friend.status==false) {%>
+                        <form action="/users/accept-friend" method="POST">
                             <input type="hidden" name="from_user" value="<%= locals.user._id %>">
                             <input type="hidden" name="to_user" value="<%= profileuser._id %>">
-                            <button type="submit" class="bg-info text-white">Remove Friend</button>
+                            <button type="submit" class="bg-info text-white">Accept Friend</button>
                         </form>
-                        <% } else {%>
-                            <form action="/users/add-friend" method="POST">
+                        <% } else if(locals.friend && locals.friend.status==true){ %>
+                            <form action="/users/remove-friend" method="POST">
                                 <input type="hidden" name="from_user" value="<%= locals.user._id %>">
                                 <input type="hidden" name="to_user" value="<%= profileuser._id %>">
-                                <button type="submit" class="bg-info text-white">Add Friend</button>
+                                <button type="submit" class="bg-info text-white">Remove Friend</button>
                             </form>
-                            <% } %>
+                            <% } else {%>
+                                <form action="/users/add-friend" method="POST">
+                                    <input type="hidden" name="from_user" value="<%= locals.user._id %>">
+                                    <input type="hidden" name="to_user" value="<%= profileuser._id %>">
+                                    <button type="submit" class="bg-info text-white">Add Friend</button>
+                                </form>
+                                <% } %>
+                                    <% } %>
+
+
         </div>
     </div>
 </div>
