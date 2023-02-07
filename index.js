@@ -14,8 +14,6 @@ console.log('Chat server is listening on port 5000');
 const expressLayouts = require('express-ejs-layouts');
 const MongoStore = require('connect-mongo');
 
-
-
 const mongoose = require('./config/mongoose');
 require('passport');
 const passport = require('./config/passport_local_strategy');
@@ -40,7 +38,7 @@ app.use(session({
     },
     store: MongoStore.create(
         {
-            mongoUrl: `mongodb://localhost/${env.db}`,
+            mongoUrl: `mongodb+srv://yogeshwar:yogesh12345@cluster0-2354234.7eps74w.mongodb.net/test`,
             autoRemove: 'disabled'
         },
         function (err) {
